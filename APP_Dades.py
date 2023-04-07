@@ -22,8 +22,8 @@ user="/home/ruben/"
 # user="C:/Users/joana.APCE/"
 
 
-path = user + "Dropbox/Dades/APP Dades/"
-# path = ""
+# path = user + "Dropbox/Dades/APP Dades/"
+path = ""
 
 st.set_page_config(
     page_title="Conjuntura de sector",
