@@ -30,6 +30,10 @@ st.set_page_config(
     page_icon=":house:",
     layout="wide"
 )
+def load_css_file(css_file_path):
+    with open(css_file_path) as f:
+        return st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+load_css_file(path + "main.css")
 
 with open(path + 'config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
@@ -55,18 +59,19 @@ if authentication_status is False:
 elif authentication_status is None:
     st.warning("Siusplau entri el nom d'usuari i contrasenya")
 elif authentication_status:
-    left_col, right_col, margin_right = st.columns((2, 0.5, 0.5))
+    left_col, right_col, margin_right = st.columns((1, 2, 0.5))
     with left_col:
-        st.write(f'Benvingut **{name}**')
-        st.header("CONJUNTURA SECTORIAL")
+        st.markdown(f'Benvingut **{name}**')
+        # st.header("CONJUNTURA SECTORIAL")
     with margin_right:
         authenticator.logout('Tanca Sessió', 'main')
     with right_col:
-        with open(path + "APCE.png", "rb") as f:
+        with open(path + "APCE_mod.png", "rb") as f:
             data_uri = base64.b64encode(f.read()).decode("utf-8")
         markdown = f"""
-        #
-        ![image](data:image/png;base64,{data_uri})
+        <div>
+        <img src="data:image/png;base64, {data_uri}" alt="image" />
+        </div>
         """
         st.markdown(markdown, unsafe_allow_html=True)
 
@@ -80,21 +85,19 @@ elif authentication_status:
         orientation="horizontal",
         styles={
             "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "15px"},
+            "icon": {"color": "orange", "font-size": "17px"},
             "nav-link": {
-                "font-size": "15px",
+                "font-size": "17px",
                 "text-align": "center",
                 "font-weight": "bold",
-                "color":"grey",
+                "color":"#363534",
                 "margin": "0px",
                 "--hover-color": "#eee",
-                },
-            "nav-link-selected": {"background-color": "#4BACC6"},
+                "background-color": "#fcefdc"},
+            "nav-link-selected": {"background-color": "#de7207"},
             })
 
-    def load_css_file(css_file_path):
-        with open(css_file_path) as f:
-            return st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
         
     @st.cache_data
     def import_data():
@@ -121,7 +124,12 @@ elif authentication_status:
     def tidy_Catalunya(data_ori, columns_sel, fecha_ini, fecha_fin, columns_output):
         output_data = data_ori[["Trimestre"] + columns_sel][(data_ori["Fecha"]>=fecha_ini) & (data_ori["Fecha"]<=fecha_fin)]
         output_data.columns = ["Trimestre"] + columns_output
-        return(output_data.set_index("Trimestre").drop("Data", axis=1))   
+        return(output_data.set_index("Trimestre").drop("Data", axis=1))
+    def tidy_Catalunya_anual(data_ori, columns_sel, fecha_ini, fecha_fin, columns_output):
+        output_data = data_ori[columns_sel][(data_ori["Fecha"]>=fecha_ini) & (data_ori["Fecha"]<=fecha_fin)]
+        output_data.columns = columns_output
+        output_data["Any"] = output_data["Any"].astype(str)
+        return(output_data.set_index("Any"))    
     def concatenate_lists(list1, list2):
         result_list = []
         for i in list1:
@@ -133,8 +141,10 @@ elif authentication_status:
         df.to_excel(towrite, encoding='latin-1', index=True, header=True)
         towrite.seek(0)
         b64 = base64.b64encode(towrite.read()).decode("latin-1")
-        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">Descarregar arxiu Excel</a>'
+        href = f"""<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">
+        <button class="download-button">Descarregar</button></a>"""
         return href
+            # <button type="submit" class="button">Enviar ✉</button>
     def line_plotly(table_n, selection_n, title_main, title_y):
         plot_cat = table_n[selection_n]
         traces = []
@@ -153,7 +163,25 @@ elif authentication_status:
         )
         fig = go.Figure(data=traces, layout=layout)
         return(fig)
-
+    def bar_plotly(table_n, selection_n, title_main, title_y, year_ini):
+        table_n = table_n.reset_index()
+        table_n["Any"] = table_n["Any"].astype(int)
+        plot_cat = table_n[table_n["Any"]>=year_ini][["Any"] + selection_n].set_index("Any")
+        traces = []
+        for col in plot_cat.columns:
+            trace = go.Bar(
+                x=plot_cat.index,
+                y=plot_cat[col],
+                name=col
+            )
+            traces.append(trace)
+        layout = go.Layout(
+            title=title_main,
+            xaxis=dict(title="Any"),
+            yaxis=dict(title=title_y)
+        )
+        fig = go.Figure(data=traces, layout=layout)
+        return(fig)
     if selected == "Catalunya":
         st.sidebar.header("Selecció")
         selected_type = st.sidebar.radio("**Mercat de venda o lloguer**", ("Venda", "Lloguer"))
@@ -168,12 +196,19 @@ elif authentication_status:
                 st.markdown("La producció d'habitatge a Catalunya al 2022")
                 min_year, max_year = st.sidebar.slider("**Interval d'anys de la mostra**", value=[min_year, max_year], min_value=min_year, max_value=max_year)
                 table_Catalunya = tidy_Catalunya(DT_terr, ["Fecha", "iniviv_Catalunya", "finviv_Catalunya", "calprov_Cataluña", "caldef_Cataluña"], f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Habitatges Iniciats", "Habitatges acabats", "Qualificacions provisionals d'habitatge protegit", "Qualificacions definitives d'habitatge protegit"])
+                table_Catalunya_y = tidy_Catalunya_anual(DT_terr_y, ["Fecha", "iniviv_Catalunya", "finviv_Catalunya", "calprov_Cataluña", "caldef_Cataluña"], min_year, max_year,["Any", "Habitatges Iniciats", "Habitatges acabats", "Qualificacions provisionals d'habitatge protegit", "Qualificacions definitives d'habitatge protegit"])
                 selected_columns = st.multiselect("Selecciona el indicador: ", table_Catalunya.columns.tolist(), default=table_Catalunya.columns.tolist())
-                left_margin, center_margin, right_margin = st.columns((0.5,10,0.5))
-                with center_margin:
+                left_col, right_col = st.columns((1,1))
+                with left_col:
+                    st.markdown("**Dades trimestrals**")
                     st.dataframe(table_Catalunya[selected_columns])
                     st.markdown(filedownload(table_Catalunya, f"{selected_index}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_Catalunya, selected_columns, "Oferta d'habitatges a Catalunya", "Indicador d'oferta en nivells"))
+                with right_col:
+                    st.markdown("**Dades anuals**")
+                    st.dataframe(table_Catalunya_y[selected_columns])
+                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns, "Oferta d'habitatges a Catalunya", "Indicador d'oferta en nivells", 2019))
             if selected_index=="Compravendes":
                 min_year=2014
                 st.subheader("COMPRAVENDES D'HABITATGES A CATALUNYA")

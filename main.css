@@ -1,6 +1,6 @@
-.button, .button:link, .button:visited {
+.button, .button:link, .button:visited, .download-button {
   font-size: 20px;
-  background-color: #f44336;
+  background-color: #de7207;
   color: white;
   padding: 14px 25px;
   text-align: center;
@@ -8,9 +8,9 @@
   display: inline-block;
   border: none;
   border-radius: 4px;
-  -webkit-animation: bounce .6s infinite alternate;
+  /* -webkit-animation: bounce .6s infinite alternate;
   -moz-animation: bounce .6s infinite alternate;
-  animation: bounce .6s infinite alternate;
+  animation: bounce .6s infinite alternate; */
 }
 
 
@@ -32,7 +32,7 @@ table.dataframe {
 
 table.dataframe thead th {
 
-  background-color: #088F8F;
+  background-color: #de7207;
 
   color: #FFFFFF;
 
@@ -42,13 +42,13 @@ table.dataframe thead th {
 
 table.dataframe tbody tr:nth-of-type(even) {
 
-  background-color: #f3f3f3;
+  background-color: #de7207;
 
 }
 
 table.dataframe tbody tr:last-of-type {
 
-  border-bottom: 2px solid #088F8F;
+  border-bottom: 2px solid #de7207;
 
 }
 
@@ -73,7 +73,7 @@ table.dataframe tbody td {
 }
 
 .button:hover, .button:active {
-  background-color: red;
+  background-color: #de7207;
 }
 
 /* Style inputs with type="text", type="email"and textareas */
@@ -132,4 +132,21 @@ h2 {
 p {
   line-height: 1.5;
   margin-bottom: 10px;
+}
+
+.download-button {
+  background-color: #de7207; /* Red background */
+  color: #fff; /* White text */
+  border: none; /* No border */
+  padding: 12px 24px; /* Padding around text */
+  font-size: 16px; /* Text size */
+  font-weight: bold; /* Bold text */
+  border-radius: 4px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Shadow effect */
+  transition: all 0.3s ease; /* Smooth transition on hover */
+}
+
+.download-button:hover {
+  background-color: #de7207; /* Darker red background on hover */
+  cursor: pointer; /* Change cursor to hand on hover */
 }
