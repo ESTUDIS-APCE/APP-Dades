@@ -58,9 +58,9 @@ table.dataframe tbody td {
 }
 
 /* Style inputs with type="text", type="email"and textareas */
-input[type=text], input[type=email], textarea {
+.Contacte, input[type=email], textarea {
   width: 100%; /* Full width */
-  padding: 12px; /* Some padding */ 
+  padding: 8px; /* Some padding */ 
   border-radius: 4px; /* Rounded borders */
   box-sizing: border-box; /* Make sure that padding and width stays in place */
   margin-bottom: 16px; /* Bottom margin */
@@ -138,4 +138,7 @@ p, ul, li{
 .download-button:hover {
   background-color: #de7207; /* Darker red background on hover */
   cursor: pointer; /* Change cursor to hand on hover */
+}
+.stMultiSelect [data-baseweb=select] span{
+  max-width: 500px;
 }
