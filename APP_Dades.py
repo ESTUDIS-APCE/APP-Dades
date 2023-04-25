@@ -1116,13 +1116,43 @@ elif authentication_status:
                 min_year=2011
                 st.subheader(f"PRODUCCIÓ D'HABITATGES A {selected_dis.upper()}")
                 min_year, max_year = st.sidebar.slider("**Interval d'anys de la mostra**", value=[min_year, max_year], min_value=min_year, max_value=max_year)
-                table_dis = tidy_Catalunya(DT_dis, ["Fecha"] + concatenate_lists(["iniviv_", "finviv_"], selected_dis), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Habitatges Iniciats", "Habitatges acabats"])
+                table_dis = tidy_Catalunya(DT_dis, ["Fecha"] + concatenate_lists(["iniviv_","iniviv_uni_", "iniviv_pluri_","finviv_","finviv_uni_", "finviv_pluri_"], selected_dis), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Habitatges iniciats","Habitatges iniciats unifamiliars", "Habitatges iniciats plurifamiliars", "Habitatges acabats", "Habitatges acabats unifamiliars", "Habitatges acabats plurifamiliars"])
+                table_dis_y = tidy_Catalunya_anual(DT_dis_y, ["Fecha"] + concatenate_lists(["iniviv_","iniviv_uni_", "iniviv_pluri_","finviv_","finviv_uni_", "finviv_pluri_"], selected_dis), min_year, max_year,["Any","Habitatges iniciats","Habitatges iniciats unifamiliars", "Habitatges iniciats plurifamiliars", "Habitatges acabats", "Habitatges acabats unifamiliars", "Habitatges acabats plurifamiliars"])
+                # table_dis_pluri = tidy_Catalunya(DT_dis, ["Fecha"] + concatenate_lists(["iniviv_pluri_50m2_","iniviv_pluri_5175m2_", "iniviv_pluri_76100m2_","iniviv_pluri_101125m2_", "iniviv_pluri_126150m2_", "iniviv_pluri_150m2_"], selected_dis), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Plurifamiliar fins a 50m2","Plurifamiliar entre 51m2 i 75 m2", "Plurifamiliar entre 76m2 i 100m2","Plurifamiliar entre 101m2 i 125m2", "Plurifamiliar entre 126m2 i 150m2", "Plurifamiliar de més de 150m2"])
+                # table_dis_uni = tidy_Catalunya(DT_dis, ["Fecha"] + concatenate_lists(["iniviv_uni_50m2_","iniviv_uni_5175m2_", "iniviv_uni_76100m2_","iniviv_uni_101125m2_", "iniviv_uni_126150m2_", "iniviv_uni_150m2_"], selected_dis), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Unifamiliar fins a 50m2","Unifamiliar entre 51m2 i 75 m2", "Unifamiliar entre 76m2 i 100m2","Unifamiliar entre 101m2 i 125m2", "Unifamiliar entre 126m2 i 150m2", "Unifamiliar de més de 150m2"])
+                left, left_mid, left_center, right_mid, right_center, right = st.columns((1,1,1,1,1,1))
+                with left:
+                    st.metric(label="Habitatges iniciats", value=f"""{indicator_year(table_dis_y, "2022", "Habitatges iniciats", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, "2022", "Habitatges iniciats", "var")}%""")
+                with left_mid:
+                    st.metric(label="Habitatges iniciats plurifamiliars", value=f"""{indicator_year(table_dis_y, "2022", "Habitatges iniciats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, "2022", "Habitatges iniciats plurifamiliars", "var")}%""")
+                with left_center:
+                    st.metric(label="Habitatges iniciats unifamiliars", value=f"""{indicator_year(table_dis_y, "2022", "Habitatges iniciats unifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, "2022", "Habitatges iniciats unifamiliars", "var")}%""")
+                with right_mid:
+                    st.metric(label="Habitatges acabats", value=f"""{indicator_year(table_dis_y, "2022", "Habitatges acabats", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, "2022", "Habitatges acabats", "var")}%""")
+                with right_center:
+                    st.metric(label="Habitatges acabats plurifamiliars", value=f"""{indicator_year(table_dis_y, "2022", "Habitatges acabats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, "2022", "Habitatges acabats plurifamiliars", "var")}%""")
+                with right:
+                    st.metric(label="Habitatges acabats unifamiliars", value=f"""{indicator_year(table_dis_y, "2022", "Habitatges acabats unifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, "2022", "Habitatges acabats unifamiliars", "var")}%""")
+
                 selected_columns = st.multiselect("Selecciona el indicador: ", table_dis.columns.tolist(), default=table_dis.columns.tolist())
-                left_margin, center_margin, right_margin = st.columns((0.5,10,0.5))
-                with center_margin:
+                selected_columns_ini = [col for col in table_dis.columns.tolist() if col.startswith("Habitatges iniciats ")]
+                selected_columns_fin = [col for col in table_dis.columns.tolist() if col.startswith("Habitatges acabats ")]
+                selected_columns_aux = ["Habitatges iniciats", "Habitatges acabats"]
+                left_col, right_col = st.columns((1,1))
+                with left_col:
+                    st.markdown("**Dades trimestrals**")
                     st.dataframe(table_dis[selected_columns])
-                    st.markdown(filedownload(table_dis, f"{selected_index}.xlsx"), unsafe_allow_html=True)
-                    st.plotly_chart(line_plotly(table_dis, selected_columns, "Oferta d'habitatges", "Indicador d'oferta en nivells"), use_container_width=True, responsive=True)
+                    st.markdown(filedownload(table_dis[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.plotly_chart(line_plotly(table_dis[selected_columns_aux], selected_columns_aux, "Oferta d'habitatges", "Indicador d'oferta en nivells"), use_container_width=True, responsive=True)
+                    st.plotly_chart(area_plotly(table_dis[selected_columns_ini], selected_columns_ini, "Habitatges iniciats per tipologia", "Habitatges iniciats", "2011T1"), use_container_width=True, responsive=True)
+                    # st.plotly_chart(area_plotly(table_dis_pluri, table_dis_pluri.columns.tolist(), "Habitatges iniciats plurifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
+                with right_col:
+                    st.markdown("**Dades anuals**")
+                    st.dataframe(table_dis_y[selected_columns])
+                    st.markdown(filedownload(table_dis_y[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.plotly_chart(bar_plotly(table_dis_y[selected_columns_aux], selected_columns_aux, "Oferta d'habitatges", "Indicador d'oferta en nivells", 2005), use_container_width=True, responsive=True)
+                    st.plotly_chart(area_plotly(table_dis[selected_columns_fin], selected_columns_fin, "Habitatges acabats per tipologia", "Habitatges acabats", "2011T1"), use_container_width=True, responsive=True)
+                    # st.plotly_chart(area_plotly(table_dis_uni, table_dis_uni.columns.tolist(), "Habitatges iniciats unifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
             if selected_index=="Compravendes":
                 min_year=2017
                 st.subheader(f"COMPRAVENDES D'HABITATGE A {selected_dis.upper()}")
