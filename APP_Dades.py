@@ -239,15 +239,38 @@ if selected == "Espanya":
     st.sidebar.header("Selecció")
     selected_type = st.sidebar.radio("", ("Sector residencial","Indicadors macroeconòmics","Indicadors financers"))
     if selected_type=="Indicadors macroeconòmics":
-        selected_index = st.sidebar.selectbox("", ["Producte Interior Brut per sectors", "Índex de Preus al Consum (IPC)", "Ocupació per sectors", "Costos de construcció per tipologia", "Consum de ciment"])
-        if selected_index=="Producte Interior Brut per sectors":
-            st.subheader("PRODUCTE INTERIOR BRUT PER SECTORS")
+        selected_index = st.sidebar.selectbox("", ["Índex de Preus al Consum (IPC)", "Ocupació per sectors", "Consum de ciment"])
         if selected_index=="Índex de Preus al Consum (IPC)":
             st.subheader("ÍNDEX DE PREUS AL CONSUM (IPC)")
+            min_year=2008
+            max_year=datetime.now().year
+            table_espanya_m = tidy_Catalunya_mensual(DT_monthly, ["Fecha", "IPC_Nacional_x", "IPC_subyacente", "IGC_Nacional"], f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data","IPC","IPC subjacent", "IGC"]).dropna(axis=0)
+            table_espanya_m["Inflació"] = round(table_espanya_m.set_index("Data")["IPC"].pct_change(12).mul(100),1)
+            table_espanya_m["Inflació subjacent"] = round(table_espanya_m["IPC subjacent"].mul(100),1)
+            table_espanya_m["Índex de Garantia de Competitivitat"] = table_espanya_m["IGC"]
+            table_espanya_m = table_espanya_m.drop(["IPC", "IPC subjacent", "IGC"], axis=1).dropna(axis=0)
+            table_espanya_y = table_espanya_m.reset_index().drop("Fecha", axis=1).set_index("Data").resample("y").mean().reset_index()
+            table_espanya_y['Any']= pd.DatetimeIndex(table_espanya_y['Data']).year.astype(str)
+            table_espanya_y = table_espanya_y.drop("Data", axis=1).set_index("Any")
+            left, center, right= st.columns((1,1,1))
+            with left:
+                st.metric(label="**Inflació** (Variació anual IPC)", value=f"""{round(table_espanya_m["Inflació"][-1],1)}%""")
+            with center:
+                st.metric(label="**Inflació subjacent** (Exclou energia i aliments frecos)", value=f"""{round(table_espanya_m["Inflació subjacent"][-1],1)}%""")
+            with right:
+                st.metric(label="**Índex de Garantia de Competitivitat** (Variació anual)", value=f"""{round(table_espanya_m["Índex de Garantia de Competitivitat"][-1],1)}%""")
+            left, right = st.columns((1,1))
+            with left: 
+                st.markdown("**Dades mensuals**")
+                st.dataframe(table_espanya_m.reset_index().drop("Fecha", axis=1).set_index("Data"))
+                st.markdown(filedownload(table_espanya_m, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.plotly_chart(line_plotly(table_espanya_m, ["Inflació", "Inflació subjacent", "Índex de Garantia de Competitivitat"], "Evolució mensual de la inflació i l'IGC", "%",  "Any"), use_container_width=True, responsive=True)
+            with right:
+                st.markdown("**Dades anuals**")
+                st.dataframe(table_espanya_y)
+                st.markdown(filedownload(table_espanya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
         if selected_index=="Ocupació per sectors":
-            st.subheader("OCUPACIÓ PER SECTORS")  
-        if selected_index=="Costos de construcció per tipologia":
-            st.subheader("COSTOS DE CONSTRUCCIÓ PER TIPOLOGIA")               
+            st.subheader("OCUPACIÓ PER SECTORS")            
         if selected_index=="Consum de ciment":
             st.subheader("CONSUM DE CIMENT")     
     if selected_type=="Indicadors financers":
@@ -437,15 +460,70 @@ if selected == "Catalunya":
     st.sidebar.header("Selecció")
     selected_indicator = st.sidebar.radio("", ("Sector residencial", "Indicadors macroeconòmics", "Indicadors financers"))
     if selected_indicator=="Indicadors macroeconòmics":
-        selected_index = st.sidebar.selectbox("", ["Producte Interior Brut per sectors", "Índex de Preus al Consum", "Ocupació per sectors", "Consum de Ciment"])
-        if selected_index=="Producte Interior Brut per sectors":
-            st.subheader("PRODUCTE INTERIOR BRUT PER SECTORS")
+        selected_index = st.sidebar.selectbox("", ["Índex de Preus al Consum", "Costos de construcció per tipologia", "Ocupació per sectors", "Consum de Ciment"])
+        available_years = list(range(2014, datetime.now().year + 1))
+        selected_year_n = st.sidebar.selectbox("Selecciona un any:", available_years, available_years.index(datetime.now().year))
         if selected_index=="Índex de Preus al Consum (IPC)":
             st.subheader("ÍNDEX DE PREUS AL CONSUM (IPC)")
         if selected_index=="Ocupació per sectors":
-            st.subheader("OCUPACIÓ PER SECTORS")            
-        if selected_index=="Consum de ciment":
-            st.subheader("CONSUM DE CIMENT")  
+            st.subheader("OCUPACIÓ PER SECTORS")
+        if selected_index=="Costos de construcció per tipologia":
+            st.subheader("COSTOS DE CONSTRUCCIÓ PER TIPOLOGIA")
+            min_year=2014
+            max_year=datetime.now().year
+            table_catalunya_q = tidy_Catalunya(DT_terr, ["Fecha", "Costos_edificimitjaneres", "Costos_Unifamiliar2plantes", "Costos_nauind", "Costos_edificioficines"],  f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Edifici renda normal entre mitjaneres", "Unifamiliar de dos plantes entre mitjaneres", "Nau industrial", "Edifici d’oficines entre mitjaneres"])
+            table_catalunya_y = tidy_Catalunya_anual(DT_terr_y, ["Fecha","Costos_edificimitjaneres", "Costos_Unifamiliar2plantes", "Costos_nauind", "Costos_edificioficines"], min_year, max_year,["Any", "Edifici renda normal entre mitjaneres", "Unifamiliar de dos plantes entre mitjaneres", "Nau industrial", "Edifici d’oficines entre mitjaneres"])
+            table_catalunya_q = table_catalunya_q.dropna(axis=0)
+            table_catalunya_y = table_catalunya_y.dropna(axis=0)
+            left_1, left_2, right_1, right_2 = st.columns((1,1,1,1))
+            with left_1:
+                st.metric(label="Edifici renda normal entre mitjaneres", value=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Edifici renda normal entre mitjaneres", "level"):,.0f}""", delta=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Edifici renda normal entre mitjaneres", "var")}%""")
+            with left_2:
+                st.metric(label="Unifamiliar de dos plantes entre mitjaneres", value=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Unifamiliar de dos plantes entre mitjaneres", "level"):,.0f}""", delta=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Unifamiliar de dos plantes entre mitjaneres", "var")}%""")
+            with right_1:
+                st.metric(label="Nau industrial", value=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Nau industrial", "level"):,.0f}""", delta=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Nau industrial", "var")}%""")
+            with right_2:
+                st.metric(label="Edifici d’oficines entre mitjaneres", value=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Edifici d’oficines entre mitjaneres", "level"):,.0f}""", delta=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Edifici d’oficines entre mitjaneres", "var")}%""")
+            left, right = st.columns((1,1))
+            with left:
+                st.markdown("**Dades trimestrals**")
+                st.dataframe(table_catalunya_q)
+                st.markdown(filedownload(table_catalunya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.plotly_chart(line_plotly(table_catalunya_q, ["Edifici renda normal entre mitjaneres", "Unifamiliar de dos plantes entre mitjaneres", "Nau industrial", "Edifici d’oficines entre mitjaneres"], "Costos de construcció per tipologia (€/m2)", "%"), use_container_width=True, responsive=True)
+            with right:
+                st.markdown("**Dades anuals**")
+                st.dataframe(table_catalunya_y)
+                st.markdown(filedownload(table_catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.plotly_chart(line_plotly(table_catalunya_q.pct_change(4).mul(100), ["Edifici renda normal entre mitjaneres", "Unifamiliar de dos plantes entre mitjaneres", "Nau industrial", "Edifici d’oficines entre mitjaneres"], "Costos de construcció per tipologia (€/m2)", "%"), use_container_width=True, responsive=True)
+
+        if selected_index=="Consum de Ciment":
+            st.subheader("CONSUM DE CIMENT")
+            min_year=2014
+            max_year=datetime.now().year
+            table_catalunya_m = tidy_Catalunya_m(DT_monthly, ["Fecha"] + ["cons_ciment_Catalunya"], f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Consum de ciment"])
+            table_catalunya_q = tidy_Catalunya(DT_terr, ["Fecha","cons_ciment_Catalunya"],  f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Consum de ciment"])
+            table_catalunya_y = tidy_Catalunya_anual(DT_terr_y, ["Fecha","cons_ciment_Catalunya"], min_year, max_year,["Any", "Consum de ciment"])
+            table_catalunya_q = table_catalunya_q.dropna(axis=0)
+            table_catalunya_y = table_catalunya_y.dropna(axis=0)
+            st.metric(label="Consum de ciment", value=f"""{indicator_year(table_catalunya_y, table_catalunya_q, str(selected_year_n), "Consum de ciment", "level"):,.0f}""", delta=f"""{indicator_year(table_catalunya_y, table_catalunya_m, str(selected_year_n), "Consum de ciment", "var", "month")}%""")
+            left, center, right = st.columns((1,1,1))
+            with left:
+                st.markdown("**Dades mensuals**")
+                st.dataframe(table_catalunya_m.set_index("Fecha"))
+                st.markdown(filedownload(table_catalunya_m.set_index("Fecha"), f"{selected_index}.xlsx"), unsafe_allow_html=True)
+            with center:
+                st.markdown("**Dades trimestrals**")
+                st.dataframe(table_catalunya_q)
+                st.markdown(filedownload(table_catalunya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+            with right:
+                st.markdown("**Dades anuals**")
+                st.dataframe(table_catalunya_y)
+                st.markdown(filedownload(table_catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+            left, right = st.columns((1,1))
+            with left:
+                st.plotly_chart(line_plotly(table_catalunya_m.set_index("Fecha"), ["Consum de ciment"], "Consum de ciment (Milers T.)", "Milers de T."), use_container_width=True, responsive=True)
+            with right:
+                st.plotly_chart(line_plotly(table_catalunya_m.set_index("Fecha").pct_change(12).mul(100).dropna(axis=0), ["Consum de ciment"], "Variació anual del consum de ciment (Milers T.)", "%"), use_container_width=True, responsive=True)
     if selected_indicator=="Indicadors financers":
         available_years = list(range(2015, datetime.now().year + 1))
         selected_year_n = st.sidebar.selectbox("Selecciona un any:", available_years, available_years.index(2022))
