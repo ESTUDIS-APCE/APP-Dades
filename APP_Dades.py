@@ -790,7 +790,7 @@ if selected == "Catalunya":
                     st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns, "Preus per m2 per tipologia d'habitatge", "€/m\u00b2", 2014), use_container_width=True, responsive=True)
             if selected_index=="Superfície":
                 min_year=2014
-                st.subheader("SUPERFÍCIE EN M\u00b2 ÚTILS")
+                st.subheader("SUPERFÍCIE EN M\u00b2 CONSTRUÏTS")
                 table_Catalunya = tidy_Catalunya(DT_terr, ["Fecha", "supert_Catalunya", "supers_Catalunya", "supern_Catalunya"], f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
                 table_Catalunya_y = tidy_Catalunya_anual(DT_terr_y, ["Fecha", "supert_Catalunya", "supers_Catalunya", "supern_Catalunya"], min_year, max_year,["Any", "Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
                 left, center, right = st.columns((1,1,1))
@@ -806,12 +806,12 @@ if selected == "Catalunya":
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_Catalunya[selected_columns])
                     st.markdown(filedownload(table_Catalunya, f"{selected_index}.xlsx"), unsafe_allow_html=True)
-                    st.plotly_chart(line_plotly(table_Catalunya, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útils"), use_container_width=True, responsive=True)
+                    st.plotly_chart(line_plotly(table_Catalunya, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 construïts"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_Catalunya_y[selected_columns])
                     st.markdown(filedownload(table_Catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
-                    st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útils", 2014), use_container_width=True, responsive=True)   
+                    st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 construïts", 2014), use_container_width=True, responsive=True)   
         if selected_type=="Lloguer":
             st.subheader("MERCAT DE LLOGUER")
             max_year=datetime.now().year
@@ -948,7 +948,7 @@ if selected == "Províncies i àmbits":
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True) 
             if selected_index=="Superfície":
                 min_year=2014
-                st.subheader(f"SUPERFÍCIE EN M\u00b2 ÚTILS D'HABITATGE A L'ÀMBIT: {selected_geo.upper()}")
+                st.subheader(f"SUPERFÍCIE EN M\u00b2 CONSTRUÏTS D'HABITATGE A L'ÀMBIT: {selected_geo.upper()}")
                 
                 table_province = tidy_Catalunya(DT_terr, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_geo), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
                 table_province_y = tidy_Catalunya_anual(DT_terr_y, ["Fecha"]  + concatenate_lists(["supert_", "supers_", "supern_"], selected_geo), min_year, max_year,["Any","Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
@@ -965,12 +965,12 @@ if selected == "Províncies i àmbits":
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
                     st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
-                    st.plotly_chart(line_plotly(table_province, selected_columns, "Superfície mitjana en m\u00b2 útils per tipologia d'habitatge", "m\u00b2 útil"), use_container_width=True, responsive=True)
+                    st.plotly_chart(line_plotly(table_province, selected_columns, "Superfície mitjana en m\u00b2 construïts per tipologia d'habitatge", "m\u00b2 útil"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_province_y[selected_columns])
                     st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
-                    st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Superfície mitjana en m\u00b2 útils per tipologia d'habitatge", "m\u00b2 útil", 2005), use_container_width=True, responsive=True) 
+                    st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Superfície mitjana en m\u00b2 construïts per tipologia d'habitatge", "m\u00b2 útil", 2005), use_container_width=True, responsive=True) 
         if selected_option=="Províncies":
             selected_geo = st.sidebar.selectbox('**Selecciona una província:**', prov_names, index= prov_names.index("Barcelona"))
             index_indicator = ["Producció", "Compravendes", "Preus", "Superfície"]
@@ -1090,7 +1090,7 @@ if selected == "Províncies i àmbits":
                 
             if selected_index=="Superfície":
                 min_year=2014
-                st.subheader(f"SUPERFÍCIE EN M\u00b2 ÚTILS D'HABITATGE A {selected_geo.upper()}")
+                st.subheader(f"SUPERFÍCIE EN M\u00b2 CONSTRUÏTS D'HABITATGE A {selected_geo.upper()}")
                 
                 table_province = tidy_Catalunya(DT_terr, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_geo), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
                 table_province_y = tidy_Catalunya_anual(DT_terr_y, ["Fecha"]  + concatenate_lists(["supert_", "supers_", "supern_"], selected_geo), min_year, max_year,["Any","Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
@@ -1313,7 +1313,7 @@ if selected=="Comarques":
                 st.plotly_chart(bar_plotly(table_com_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
             min_year=2014
-            st.subheader(f"SUPERFÍCIE EN M\u00b2 ÚTILS D'HABITATGE A LA COMARCA: {selected_com.upper()}")
+            st.subheader(f"SUPERFÍCIE EN M\u00b2 CONSTRUÏTS D'HABITATGE A LA COMARCA: {selected_com.upper()}")
             
             table_com = tidy_Catalunya(DT_terr, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_com), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
             table_com_y = tidy_Catalunya_anual(DT_terr_y, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_com), min_year, max_year,["Any","Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
@@ -1477,7 +1477,7 @@ if selected=="Municipis":
                 st.plotly_chart(bar_plotly(table_mun_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
             min_year=2014
-            st.subheader(f"SUPERFÍCIE EN M\u00b2 ÚTILS D'HABITATGE A {selected_mun.upper()}")
+            st.subheader(f"SUPERFÍCIE EN M\u00b2 CONSTRUÏTS D'HABITATGE A {selected_mun.upper()}")
             
             table_mun = tidy_Catalunya(DT_mun, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_mun), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
             table_mun_y = tidy_Catalunya_anual(DT_mun_y, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_mun), min_year, max_year,["Any","Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
@@ -1631,17 +1631,17 @@ if selected=="Districtes de Barcelona":
                 st.plotly_chart(bar_plotly(table_dis_y, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2005), use_container_width=True, responsive=True)
         if selected_index=="Preus":
             min_year=2017
-            st.subheader(f"PREUS PER M\u00b2 ÚTIL D'HABITATGE A {selected_dis.upper()}")
+            st.subheader(f"PREUS PER M\u00b2 CONSTRUÏTS D'HABITATGE A {selected_dis.upper()}")
             
             table_dis = tidy_Catalunya(DT_dis, ["Fecha"] + concatenate_lists(["prvivt_", "prvivs_", "prvivn_"], selected_dis), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Preu d'habitatge total", "Preu d'habitatge de segona mà", "Preu d'habitatge nou"])
             table_dis_y = tidy_Catalunya_anual(DT_dis_y, ["Fecha"] + concatenate_lists(["prvivt_", "prvivs_", "prvivn_"], selected_dis), min_year, max_year,["Any","Preu d'habitatge total", "Preu d'habitatge de segona mà", "Preu d'habitatge nou"])
             left, center, right = st.columns((1,1,1))
             with left:
-                st.metric(label="**Preu d'habitatge total**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "var")}%""")
+                st.metric(label="**Preu d'habitatge total** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "var")}%""")
             with center:
-                st.metric(label="**Preu d'habitatge de segona mà**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "var")}%""")
+                st.metric(label="**Preu d'habitatge de segona mà** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "var")}%""")
             with right:
-                st.metric(label="**Preu d'habitatge nou**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "var")}%""") 
+                st.metric(label="**Preu d'habitatge nou** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "var")}%""") 
             selected_columns = st.multiselect("**Selecció d'indicadors:**", table_dis.columns.tolist(), default=table_dis.columns.tolist())
             left_col, right_col = st.columns((1,1))
             with left_col:
@@ -1663,8 +1663,7 @@ if selected=="Districtes de Barcelona":
                 st.plotly_chart(bar_plotly(table_dis_y, selected_columns, "Preus per m2 per tipologia d'habitatge", "€/m2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
             min_year=2017
-            st.subheader(f"SUPERFÍCIE EN M\u00b2 ÚTILS D'HABITATGE A {selected_dis.upper()}")
-            
+            st.subheader(f"SUPERFÍCIE EN M\u00b2 CONSTRUÏTS D'HABITATGE A {selected_dis.upper()}")
             table_dis = tidy_Catalunya(DT_dis, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_dis), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
             table_dis_y = tidy_Catalunya_anual(DT_dis_y, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_dis), min_year, max_year,["Any","Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
             left, center, right = st.columns((1,1,1))
