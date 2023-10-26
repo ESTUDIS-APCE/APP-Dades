@@ -1554,7 +1554,7 @@ if selected=="Districtes de Barcelona":
                 try:
                     st.metric(label="**Habitatges iniciats**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges iniciats", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges iniciats", "var")}%""")
                 except IndexError:
-                    st.metric(label="**Habitatges iniciats**", value="Pendent")
+                    st.metric(label="**Habitatges iniciats**", value=0, delta="-100%")
             with left_mid:
                 try:
                     st.metric(label="**Habitatges iniciats plurifamiliars**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges iniciats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges iniciats plurifamiliars", "var")}%""")
@@ -1569,7 +1569,7 @@ if selected=="Districtes de Barcelona":
                 try:
                     st.metric(label="**Habitatges acabats**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges acabats", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges acabats", "var")}%""")
                 except IndexError:
-                    st.metric(label="**Habitatges acabats**", value="Pendent")
+                    st.metric(label="**Habitatges acabats**", value=0, delta="-100%")
             with right_center:
                 try:
                     st.metric(label="**Habitatges acabats plurifamiliars**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges acabats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Habitatges acabats plurifamiliars", "var")}%""")
