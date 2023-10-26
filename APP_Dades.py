@@ -297,12 +297,12 @@ if selected == "Espanya":
             with left: 
                 st.markdown("**Dades mensuals**")
                 st.dataframe(table_espanya_m.reset_index().drop("Fecha", axis=1).set_index("Data"))
-                st.markdown(filedownload(table_espanya_m, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_m, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_espanya_m, ["Inflació", "Inflació subjacent", "Índex de Garantia de Competitivitat"], "Evolució mensual de la inflació i l'IGC", "%",  "Any"), use_container_width=True, responsive=True)
             with right:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_espanya_y)
-                st.markdown(filedownload(table_espanya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_y, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
         if selected_index=="Consum de ciment":
             st.subheader("CONSUM DE CIMENT")
             min_year=2014
@@ -321,11 +321,11 @@ if selected == "Espanya":
             with center:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_espanya_q)
-                st.markdown(filedownload(table_espanya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_q, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
             with right:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_espanya_y)
-                st.markdown(filedownload(table_espanya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_y, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
             left, right = st.columns((1,1))
             with left:
                 st.plotly_chart(line_plotly(table_espanya_m.set_index("Fecha"), ["Consum de ciment"], "Consum de ciment (Milers T.)", "Milers de T."), use_container_width=True, responsive=True)
@@ -368,12 +368,12 @@ if selected == "Espanya":
             with left:
                 st.markdown("**Dades mensuals**")
                 st.dataframe(table_espanya_m[selected_columns])
-                st.markdown(filedownload(table_espanya_m, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_m, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_espanya_m, selected_columns, "Evolució mensual dels tipus d'interès", "Tipus d'interès (%)",  "Data"), use_container_width=True, responsive=True)
             with right:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_espanya_q[selected_columns])
-                st.markdown(filedownload(table_espanya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_q, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_espanya_y, ["Euríbor a 1 any", "Tipus d'interès d'hipoteques"], "Evolució anual dels tipus d'interès", "Tipus d'interès (%)",  2005), use_container_width=True, responsive=True)
         if selected_index=="Hipoteques":
             st.subheader("IMPORT I NOMBRE D'HIPOTEQUES INSCRITES EN ELS REGISTRES DE PROPIETAT")
@@ -403,13 +403,13 @@ if selected == "Espanya":
             with left:
                 st.markdown("**Dades mensuals**")
                 st.dataframe(table_espanya_m[selected_columns])
-                st.markdown(filedownload(table_espanya_m, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_m, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_espanya_m, ["Nombre d'hipoteques"], "Evolució mensual del nombre d'hipoteques", "Nombre d'hipoteques",  "Data"), use_container_width=True, responsive=True)
                 st.plotly_chart(line_plotly(table_espanya_m, ["Import d'hipoteques"], "Evolució mensual de l'import d'hipoteques", "Import d'hipoteques",  "Data"), use_container_width=True, responsive=True)
             with right:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_espanya_q[selected_columns])
-                st.markdown(filedownload(table_espanya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_espanya_q, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_espanya_y, ["Nombre d'hipoteques"], "Evolució anual del nombre d'hipoteques", "Nombre d'hipoteques",  2005), use_container_width=True, responsive=True)
                 st.plotly_chart(bar_plotly(table_espanya_y, ["Import d'hipoteques"], "Evolució anual de l'import d'hipoteques", "Import d'hipoteques",  2005), use_container_width=True, responsive=True)
 
@@ -455,13 +455,13 @@ if selected == "Espanya":
             with left:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_esp[selected_columns])
-                st.markdown(filedownload(table_esp, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_esp, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_esp, selected_columns_aux, "Evolució trimestral de la producció d'habitatges", "Nombre d'habitatges"), use_container_width=True, responsive=True)
                 st.plotly_chart(bar_plotly(table_esp_y, selected_columns_aux1, "Qualificacions provisionals de protecció oficial segons tipus de promotor", "Nombre d'habitatges", 2014), use_container_width=True, responsive=True)
             with right:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_esp_y[selected_columns])
-                st.markdown(filedownload(table_esp_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_esp_y, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_esp_y, selected_columns_aux, "Evolució anual de la producció d'habitatges", "Nombre d'habitatges", 2005), use_container_width=True, responsive=True)
                 st.plotly_chart(bar_plotly(table_esp_y, selected_columns_aux2, "Qualificacions definitives de protecció oficial segons tipus de promotor", "Nombre d'habitatges", 2014), use_container_width=True, responsive=True)
         if selected_index=="Compravendes":
@@ -489,12 +489,12 @@ if selected == "Espanya":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_esp[selected_columns])
-                st.markdown(filedownload(table_esp, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_esp, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_esp[table_esp.notna()], selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_esp_y[selected_columns])
-                st.markdown(filedownload(table_esp_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_esp_y, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_esp_y[table_esp_y.notna()], selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2008), use_container_width=True, responsive=True)
         if selected_index=="Preus":
                 min_year=2008
@@ -512,12 +512,12 @@ if selected == "Espanya":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_esp[selected_columns])
-                    st.markdown(filedownload(table_esp, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_esp, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_esp, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_esp_y[selected_columns])
-                    st.markdown(filedownload(table_esp_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_esp_y, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_esp_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2", 2010), use_container_width=True, responsive=True)
                 st.subheader("ÍNDEX DEL PREU DE L'HABITATGE (INE)")
                 table_esp = tidy_Catalunya(DT_terr, ["Fecha", "ipves", "ipvses", "ipvnes"], f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Preu d'habitatge total", "Preus d'habitatge de segona mà", "Preus d'habitatge nou"])
@@ -534,12 +534,12 @@ if selected == "Espanya":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_esp[selected_columns])
-                    st.markdown(filedownload(table_esp, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_esp, f"{selected_index}_Espanya.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_esp, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge (variació anual %)", "%"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_esp_y[selected_columns])
-                    st.markdown(filedownload(table_esp_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_esp_y, f"{selected_index}_Espanya_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_esp_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge (variació anual %)", "%", 2007), use_container_width=True, responsive=True)
 
 if selected == "Catalunya":
@@ -571,12 +571,12 @@ if selected == "Catalunya":
             with left:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_catalunya_q)
-                st.markdown(filedownload(table_catalunya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_catalunya_q, f"{selected_index}_Catalunya.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_catalunya_y, ["Total població ocupada", "Ocupació del sector de la construcció"], "Ocupats totals i del sector de la construcció", "Milers de persones", 2014), use_container_width=True, responsive=True)
             with right:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_catalunya_y)
-                st.markdown(filedownload(table_catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_catalunya_y, f"{selected_index}_Catalunya_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_catalunya_y, ["Afiliats del sector de la construcció", "Atur registrat del sector de la construcció"], "Afiliats i aturats del sector de la construcció", "Persones", 2014), use_container_width=True, responsive=True)
 
 
@@ -604,12 +604,12 @@ if selected == "Catalunya":
             with left:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_catalunya_q)
-                st.markdown(filedownload(table_catalunya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_catalunya_q, f"{selected_index}_Catalunya.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_catalunya_q, ["Edifici renda normal entre mitjaneres", "Unifamiliar de dos plantes entre mitjaneres", "Nau industrial", "Edifici d’oficines entre mitjaneres"], "Costos de construcció per tipologia (€/m2)", "%"), use_container_width=True, responsive=True)
             with right:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_catalunya_y)
-                st.markdown(filedownload(table_catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_catalunya_y, f"{selected_index}_Catalunya_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_catalunya_q.pct_change(4).mul(100), ["Edifici renda normal entre mitjaneres", "Unifamiliar de dos plantes entre mitjaneres", "Nau industrial", "Edifici d’oficines entre mitjaneres"], "Costos de construcció per tipologia (€/m2)", "%"), use_container_width=True, responsive=True)
 
         if selected_index=="Consum de Ciment":
@@ -630,11 +630,11 @@ if selected == "Catalunya":
             with center:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_catalunya_q)
-                st.markdown(filedownload(table_catalunya_q, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_catalunya_q, f"{selected_index}_Catalunya.xlsx"), unsafe_allow_html=True)
             with right:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_catalunya_y)
-                st.markdown(filedownload(table_catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_catalunya_y, f"{selected_index}_Catalunya_anual.xlsx"), unsafe_allow_html=True)
             left, right = st.columns((1,1))
             with left:
                 st.plotly_chart(line_plotly(table_catalunya_m.set_index("Fecha"), ["Consum de ciment"], "Consum de ciment (Milers T.)", "Milers de T."), use_container_width=True, responsive=True)
@@ -729,14 +729,14 @@ if selected == "Catalunya":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_Catalunya[selected_columns], use_container_width=True)
-                    st.markdown(filedownload(table_Catalunya, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_Catalunya, selected_columns_aux, "Evolució trimestral de la producció d'habitatges", "Nombre d'habitatges"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_Catalunya[selected_columns_ini], selected_columns_ini, "Habitatges iniciats per tipologia", "Habitatges iniciats", "2013T1"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_Catalunya_pluri, table_Catalunya_pluri.columns.tolist(), "Habitatges iniciats plurifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_Catalunya_y[selected_columns], use_container_width=True)
-                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns_aux, "Evolució anual de la producció d'habitatges", "Nombre d'habitatges", 2005), use_container_width=True, responsive=True) 
                     st.plotly_chart(area_plotly(table_Catalunya[selected_columns_fin], selected_columns_fin, "Habitatges acabats per tipologia", "Habitatges acabats", "2013T1"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_Catalunya_uni, table_Catalunya_uni.columns.tolist(), "Habitatges iniciats unifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
@@ -757,12 +757,12 @@ if selected == "Catalunya":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_Catalunya[selected_columns])
-                    st.markdown(filedownload(table_Catalunya, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_Catalunya, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_Catalunya_y[selected_columns])
-                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2019), use_container_width=True, responsive=True)
             if selected_index=="Preus":
                 min_year=2014
@@ -781,12 +781,12 @@ if selected == "Catalunya":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_Catalunya[selected_columns])
-                    st.markdown(filedownload(table_Catalunya, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_Catalunya, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_Catalunya_y[selected_columns])
-                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns, "Preus per m2 per tipologia d'habitatge", "€/m\u00b2", 2014), use_container_width=True, responsive=True)
             if selected_index=="Superfície":
                 min_year=2014
@@ -805,12 +805,12 @@ if selected == "Catalunya":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_Catalunya[selected_columns])
-                    st.markdown(filedownload(table_Catalunya, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_Catalunya, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 construïts"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_Catalunya_y[selected_columns])
-                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_Catalunya_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_Catalunya_y, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 construïts", 2014), use_container_width=True, responsive=True)   
         if selected_type=="Lloguer":
             st.subheader("MERCAT DE LLOGUER")
@@ -883,14 +883,14 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns_aux, "Evolució trimestral de la producció d'habitatges", "Nombre d'habitatges"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_province[selected_columns_ini], selected_columns_ini, "Habitatges iniciats per tipologia", "Habitatges iniciats", "2013T1"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_province_pluri, table_province_pluri.columns.tolist(), "Habitatges iniciats plurifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_province_y[selected_columns])
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns_aux, "Evolució anual de la producció d'habitatges", "Nombre d'habitatges", 2005), use_container_width=True, responsive=True) 
                     st.plotly_chart(area_plotly(table_province[selected_columns_fin], selected_columns_fin, "Habitatges acabats per tipologia", "Habitatges acabats", "2013T1"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_province_uni, table_province_uni.columns.tolist(), "Habitatges iniciats unifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
@@ -914,12 +914,12 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_province_y[selected_columns])
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2005), use_container_width=True, responsive=True) 
             if selected_index=="Preus":
                 min_year=2014
@@ -939,12 +939,12 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_province_y[selected_columns])
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True) 
             if selected_index=="Superfície":
                 min_year=2014
@@ -964,12 +964,12 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns, "Superfície mitjana en m\u00b2 construïts per tipologia d'habitatge", "m\u00b2 útil"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_province_y[selected_columns])
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Superfície mitjana en m\u00b2 construïts per tipologia d'habitatge", "m\u00b2 útil", 2005), use_container_width=True, responsive=True) 
         if selected_option=="Províncies":
             selected_geo = st.sidebar.selectbox('**Selecciona una província:**', prov_names, index= prov_names.index("Barcelona"))
@@ -1020,14 +1020,14 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns_aux, "Evolució trimestral de la producció d'habitatges", "Nombre d'habitatges"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_province[selected_columns_ini], selected_columns_ini, "Habitatges iniciats per tipologia", "Habitatges iniciats", "2013T1"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_province_pluri, table_province_pluri.columns.tolist(), "Habitatges iniciats plurifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
                     st.dataframe(table_province_y[selected_columns])
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns_aux, "Evolució anual de la producció d'habitatges", "Nombre d'habitatges", 2005), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_province[selected_columns_fin], selected_columns_fin, "Habitatges acabats per tipologia", "Habitatges acabats", "2013T1"), use_container_width=True, responsive=True)
                     st.plotly_chart(area_plotly(table_province_uni, table_province_uni.columns.tolist(), "Habitatges iniciats unifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
@@ -1049,7 +1049,7 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
@@ -1057,7 +1057,7 @@ if selected == "Províncies i àmbits":
                     st.markdown("")
                     st.markdown("")
                     st.markdown("")
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2005), use_container_width=True, responsive=True)     
             if selected_index=="Preus":
                 min_year=2014
@@ -1077,7 +1077,7 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
@@ -1085,7 +1085,7 @@ if selected == "Províncies i àmbits":
                     st.markdown("")
                     st.markdown("")
                     st.markdown("")
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True)     
                 
             if selected_index=="Superfície":
@@ -1106,7 +1106,7 @@ if selected == "Províncies i àmbits":
                 with left_col:
                     st.markdown("**Dades trimestrals**")
                     st.dataframe(table_province[selected_columns])
-                    st.markdown(filedownload(table_province, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province, f"{selected_index}_{selected_geo}.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(line_plotly(table_province, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil"), use_container_width=True, responsive=True)
                 with right_col:
                     st.markdown("**Dades anuals**")
@@ -1114,7 +1114,7 @@ if selected == "Províncies i àmbits":
                     st.markdown("")
                     st.markdown("")
                     st.markdown("")
-                    st.markdown(filedownload(table_province_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                    st.markdown(filedownload(table_province_y, f"{selected_index}_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                     st.plotly_chart(bar_plotly(table_province_y, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil", 2005), use_container_width=True, responsive=True)
 
     if selected_type=="Lloguer":
@@ -1147,7 +1147,7 @@ if selected == "Províncies i àmbits":
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_province_y[selected_columns])
-                st.markdown(filedownload(table_province_y, f"Lloguer_{selected_geo}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_province_y, f"Lloguer_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_province_y, ["Rendes mitjanes de lloguer"], "Evolució anual de les rendes mitjanes de lloguer", "€/mes", 2005), use_container_width=True, responsive=True)
                 st.plotly_chart(bar_plotly(table_province_y, ["Nombre de contractes de lloguer"], "Evolució anual dels contractes registrats d'habitatges en lloguer", "Nombre de contractes", 2005), use_container_width=True, responsive=True)
         if selected_option=="Províncies":
@@ -1175,7 +1175,7 @@ if selected == "Províncies i àmbits":
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_province_y[selected_columns])
-                st.markdown(filedownload(table_province_y, f"Lloguer_{selected_geo}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_province_y, f"Lloguer_{selected_geo}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_province_y, ["Rendes mitjanes de lloguer"], "Evolució anual de les rendes mitjanes de lloguer", "€/mes", 2005), use_container_width=True, responsive=True)
                 st.plotly_chart(bar_plotly(table_province_y, ["Nombre de contractes de lloguer"], "Evolució anual dels contractes registrats d'habitatges en lloguer", "Nombre de contractes", 2005), use_container_width=True, responsive=True)
 
@@ -1237,14 +1237,14 @@ if selected=="Comarques":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_com[selected_columns])
-                st.markdown(filedownload(table_com[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com[selected_columns_aux], f"{selected_index}_{selected_com}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_com[selected_columns_aux], selected_columns_aux, "Oferta d'habitatges", "Indicador d'oferta en nivells"), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_com[selected_columns_ini], selected_columns_ini, "Habitatges iniciats per tipologia", "Habitatges iniciats", "2011T1"), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_com_pluri, table_com_pluri.columns.tolist(), "Habitatges iniciats plurifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_com_y[selected_columns])
-                st.markdown(filedownload(table_com_y[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com_y[selected_columns_aux], f"{selected_index}_{selected_com}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_com_y[selected_columns_aux], selected_columns_aux, "Oferta d'habitatges", "Indicador d'oferta en nivells", 2005), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_com[selected_columns_fin], selected_columns_fin, "Habitatges acabats per tipologia", "Habitatges acabats", "2011T1"), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_com_uni, table_com_uni.columns.tolist(), "Habitatges iniciats unifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
@@ -1270,7 +1270,7 @@ if selected=="Comarques":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_com[selected_columns])
-                st.markdown(filedownload(table_com, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com, f"{selected_index}_{selected_com}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_com, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
@@ -1278,7 +1278,7 @@ if selected=="Comarques":
                 st.markdown("")
                 st.markdown("")
                 st.markdown("")
-                st.markdown(filedownload(table_com_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com_y, f"{selected_index}_{selected_com}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_com_y, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2005), use_container_width=True, responsive=True)
         if selected_index=="Preus":
             min_year=2014
@@ -1301,7 +1301,7 @@ if selected=="Comarques":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_com[selected_columns])
-                st.markdown(filedownload(table_com, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com, f"{selected_index}_{selected_com}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_com, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
@@ -1309,7 +1309,7 @@ if selected=="Comarques":
                 st.markdown("")
                 st.markdown("")
                 st.markdown("")
-                st.markdown(filedownload(table_com_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com_y, f"{selected_index}_{selected_com}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_com_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
             min_year=2014
@@ -1332,12 +1332,12 @@ if selected=="Comarques":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_com[selected_columns])
-                st.markdown(filedownload(table_com, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com, f"{selected_index}_{selected_com}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_com, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_com_y[selected_columns])
-                st.markdown(filedownload(table_com_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_com_y, f"{selected_index}_{selected_com}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_com_y, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil", 2005), use_container_width=True, responsive=True)
     if selected_type=="Lloguer":
         ambit_names = ["Alt Pirineu i Aran","Camp de Tarragona","Comarques centrals","Comarques gironines","Metropolità","Penedès","Ponent","Terres de l'Ebre"]
@@ -1388,18 +1388,35 @@ if selected=="Municipis":
             table_mun_uni = tidy_Catalunya(DT_mun, ["Fecha"] + concatenate_lists(["iniviv_uni_50m2_","iniviv_uni_5175m2_", "iniviv_uni_76100m2_","iniviv_uni_101125m2_", "iniviv_uni_126150m2_", "iniviv_uni_150m2_"], selected_mun), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Unifamiliar fins a 50m2","Unifamiliar entre 51m2 i 75 m2", "Unifamiliar entre 76m2 i 100m2","Unifamiliar entre 101m2 i 125m2", "Unifamiliar entre 126m2 i 150m2", "Unifamiliar de més de 150m2"])
             left, left_mid, left_center, right_mid, right_center, right = st.columns((1,1,1,1,1,1))
             with left:
-                st.metric(label="**Habitatges iniciats**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats", "var")}%""")
+                try:
+                    st.metric(label="**Habitatges iniciats**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Habitatges iniciats**", value=0, delta="-100%")
             with left_mid:
-                st.metric(label="**Habitatges iniciats plurifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats plurifamiliars", "var")}%""")
+                try:
+                    st.metric(label="**Habitatges iniciats plurifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats plurifamiliars", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Habitatges iniciats plurifamiliars**", value=0, delta="-100%")
             with left_center:
-                st.metric(label="**Habitatges iniciats unifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats unifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats unifamiliars", "var")}%""")
+                try:
+                    st.metric(label="**Habitatges iniciats unifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats unifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges iniciats unifamiliars", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Habitatges iniciats unifamiliars**", value=0, delta="-100%")
             with right_mid:
-                st.metric(label="**Habitatges acabats**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats", "var")}%""")
+                try:
+                    st.metric(label="**Habitatges acabats**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Habitatges acabats**", value=0, delta="-100%")
             with right_center:
-                st.metric(label="**Habitatges acabats plurifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats plurifamiliars", "var")}%""")
+                try:
+                    st.metric(label="**Habitatges acabats plurifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats plurifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats plurifamiliars", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Habitatges acabats plurifamiliars**", value=0, delta="-100%")
             with right:
-                st.metric(label="**Habitatges acabats unifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats unifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats unifamiliars", "var")}%""")
-
+                try:
+                    st.metric(label="**Habitatges acabats unifamiliars**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats unifamiliars", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Habitatges acabats unifamiliars", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Habitatges acabats unifamiliars**", value=0, delta="-100%")
             selected_columns = st.multiselect("**Selecció d'indicadors:**", table_mun.columns.tolist(), default=table_mun.columns.tolist())
             selected_columns_ini = [col for col in table_mun.columns.tolist() if col.startswith("Habitatges iniciats ")]
             selected_columns_fin = [col for col in table_mun.columns.tolist() if col.startswith("Habitatges acabats ")]
@@ -1408,14 +1425,14 @@ if selected=="Municipis":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_mun[selected_columns])
-                st.markdown(filedownload(table_mun[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun[selected_columns_aux], f"{selected_index}_{selected_mun}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_mun[selected_columns_aux], selected_columns_aux, "Evolució trimestral de la producció d'habitatges", "Indicador d'oferta en nivells"), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_mun[selected_columns_ini], selected_columns_ini, "Habitatges iniciats per tipologia", "Habitatges iniciats", "2011T1"), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_mun_pluri, table_mun_pluri.columns.tolist(), "Habitatges iniciats plurifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_mun_y[selected_columns])
-                st.markdown(filedownload(table_mun_y[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun_y[selected_columns_aux], f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_mun_y[selected_columns_aux], selected_columns_aux, "Evolució anual de la producció d'habitatges", "Indicador d'oferta en nivells", 2005), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_mun[selected_columns_fin], selected_columns_fin, "Habitatges acabats per tipologia", "Habitatges acabats", "2011T1"), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_mun_uni, table_mun_uni.columns.tolist(), "Habitatges iniciats unifamiliars per superfície útil", "Habitatges iniciats", "2014T1"), use_container_width=True, responsive=True)
@@ -1427,45 +1444,61 @@ if selected=="Municipis":
             table_mun_y = tidy_Catalunya_anual(DT_mun_y, ["Fecha"] + concatenate_lists(["trvivt_", "trvivs_", "trvivn_"], selected_mun), min_year, max_year,["Any","Compravendes d'habitatge total", "Compravendes d'habitatge de segona mà", "Compravendes d'habitatge nou"])
             left, center, right = st.columns((1,1,1))
             with left:
-                st.metric(label="**Compravendes d'habitatge total**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge total", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge total", "var")}%""")
+                try:
+                    st.metric(label="**Compravendes d'habitatge total**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge total", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge total", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Compravendes d'habitatge total**", value=0, delta="-100%")
             with center:
-                st.metric(label="**Compravendes d'habitatge de segona mà**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge de segona mà", "var")}%""")
+                try:
+                    st.metric(label="**Compravendes d'habitatge de segona mà**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge de segona mà", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Compravendes d'habitatge de segona mà**", value=0, delta="-100%") 
             with right:
-                st.metric(label="**Compravendes d'habitatge nou**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge nou", "var")}%""") 
+                try:
+                    st.metric(label="**Compravendes d'habitatge nou**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Compravendes d'habitatge nou", "var")}%""") 
+                except IndexError:
+                    st.metric(label="**Compravendes d'habitatge nou**", value=0, delta="-100%") 
             selected_columns = st.multiselect("**Selecció d'indicadors:**", table_mun.columns.tolist(), default=table_mun.columns.tolist())
             left_col, right_col = st.columns((1,1))
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_mun[selected_columns])
-                st.markdown(filedownload(table_mun, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun, f"{selected_index}_{selected_mun}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_mun, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_mun_y[selected_columns])
                 st.markdown("")
-                st.markdown("")
-                st.markdown("")
-                st.markdown(filedownload(table_mun_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun_y, f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_mun_y, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2005), use_container_width=True, responsive=True)
         if selected_index=="Preus":
             min_year=2014
-            st.subheader(f"PREUS PER M\u00b2 ÚTIL D'HABITATGE A {selected_mun.upper()}")
+            st.subheader(f"PREUS PER M\u00b2 CONSTRUÏT D'HABITATGE A {selected_mun.upper()}")
             
             table_mun = tidy_Catalunya(DT_mun, ["Fecha"] + concatenate_lists(["prvivt_", "prvivs_", "prvivn_"], selected_mun), f"{str(min_year)}-01-01", f"{str(max_year+1)}-01-01",["Data", "Preu d'habitatge total", "Preu d'habitatge de segona mà", "Preu d'habitatge nou"])
             table_mun_y = tidy_Catalunya_anual(DT_mun_y, ["Fecha"] + concatenate_lists(["prvivt_", "prvivs_", "prvivn_"], selected_mun), min_year, max_year,["Any","Preu d'habitatge total", "Preu d'habitatge de segona mà", "Preu d'habitatge nou"])
             left, center, right = st.columns((1,1,1))
             with left:
-                st.metric(label="**Preu d'habitatge total**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge total", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge total", "var")}%""")
+                try:
+                    st.metric(label="**Preu d'habitatge total** (€/m\u00b2 construït)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge total", "level"):,.0f} €/m\u00b2""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge total", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Preu d'habitatge total** (€/m\u00b2 construït)", value="n/a") 
             with center:
-                st.metric(label="**Preu d'habitatge de segona mà**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge de segona mà", "var")}%""")
+                try:
+                    st.metric(label="**Preu d'habitatge de segona mà** (€/m\u00b2 construït)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge de segona mà", "level"):,.0f} €/m\u00b2""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge de segona mà", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Preu d'habitatge de segona mà** (€/m\u00b2 construït)", value="n/a") 
             with right:
-                st.metric(label="**Preu d'habitatge nou**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge nou", "var")}%""") 
+                try:
+                    st.metric(label="**Preu d'habitatge nou** (€/m\u00b2 construït)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge nou", "level"):,.0f} €/m\u00b2""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Preu d'habitatge nou", "var")}%""") 
+                except IndexError:
+                    st.metric(label="**Preu d'habitatge nou** (€/m\u00b2 construït)", value="n/a") 
             selected_columns = st.multiselect("**Selecció d'indicadors:**", table_mun.columns.tolist(), default=table_mun.columns.tolist())
             left_col, right_col = st.columns((1,1))
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_mun[selected_columns])
-                st.markdown(filedownload(table_mun, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun, f"{selected_index}_{selected_mun}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_mun, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
@@ -1473,7 +1506,7 @@ if selected=="Municipis":
                 st.markdown("")
                 st.markdown("")
                 st.markdown("")
-                st.markdown(filedownload(table_mun_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun_y, f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_mun_y, selected_columns, "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
             min_year=2014
@@ -1483,17 +1516,26 @@ if selected=="Municipis":
             table_mun_y = tidy_Catalunya_anual(DT_mun_y, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_mun), min_year, max_year,["Any","Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
             left, center, right = st.columns((1,1,1))
             with left:
-                st.metric(label="**Superfície mitjana total**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana total", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana total", "var")}%""")
+                try:
+                    st.metric(label="**Superfície mitjana total** (m\u00b2 construït)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana total", "level"):,.0f} m\u00b2""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana total", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Superfície mitjana total** (m\u00b2 construït)", value="n/a")
             with center:
-                st.metric(label="**Superfície mitjana d'habitatge de segona mà**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "var")}%""")
+                try:
+                    st.metric(label="**Superfície mitjana d'habitatge de segona mà** (m\u00b2 construït)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "level"):,.0f} m\u00b2""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Superfície mitjana d'habitatge de segona mà** (m\u00b2 construït)", value="n/a")
             with right:
-                st.metric(label="**Superfície mitjana d'habitatge nou**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge nou", "var")}%""")
+                try:
+                    st.metric(label="**Superfície mitjana d'habitatge nou** (m\u00b2 construït)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge nou", "level"):,.0f} m\u00b2""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Superfície mitjana d'habitatge nou", "var")}%""")
+                except IndexError:
+                    st.metric(label="**Superfície mitjana d'habitatge nou** (m\u00b2 construït)", value="n/a")
             selected_columns = st.multiselect("**Selecció d'indicadors:**", table_mun.columns.tolist(), default=table_mun.columns.tolist())
             left_col, right_col = st.columns((1,1))
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_mun[selected_columns])
-                st.markdown(filedownload(table_mun, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun, f"{selected_index}_{selected_mun}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_mun, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
@@ -1501,7 +1543,7 @@ if selected=="Municipis":
                 st.markdown("")
                 st.markdown("")
                 st.markdown("")
-                st.markdown(filedownload(table_mun_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_mun_y, f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_mun_y, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil", 2005), use_container_width=True, responsive=True)
     if selected_type=="Lloguer":
         selected_mun = st.sidebar.selectbox("**Selecciona un municipi:**", maestro_mun["Municipi"].unique(), index= maestro_mun["Municipi"].tolist().index("Barcelona"))
@@ -1514,9 +1556,16 @@ if selected=="Municipis":
         table_mun_y = tidy_Catalunya_anual(DT_mun_y, ["Fecha"] + concatenate_lists(["trvivalq_", "pmvivalq_"], selected_mun), min_year, max_year,["Any", "Nombre de contractes de lloguer", "Rendes mitjanes de lloguer"])
         left_col, right_col = st.columns((1,1))
         with left_col:
-            st.metric(label="**Nombre de contractes de lloguer**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Nombre de contractes de lloguer", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Nombre de contractes de lloguer", "var")}%""")
+            try:
+                st.metric(label="**Nombre de contractes de lloguer**", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Nombre de contractes de lloguer", "level"):,.0f}""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Nombre de contractes de lloguer", "var")}%""")
+            except IndexError:
+                st.metric(label="**Nombre de contractes de lloguer**", value="n/a")
         with right_col:
-            st.metric(label="**Rendes mitjanes de lloguer** (€/mes)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Rendes mitjanes de lloguer", "level"):,.0f} €/mes""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Rendes mitjanes de lloguer", "var")}%""")
+            try:
+                st.metric(label="**Rendes mitjanes de lloguer** (€/mes)", value=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Rendes mitjanes de lloguer", "level"):,.0f} €/mes""", delta=f"""{indicator_year(table_mun_y, table_mun, str(selected_year_n), "Rendes mitjanes de lloguer", "var")}%""")
+            except IndexError:
+                st.metric(label="**Rendes mitjanes de lloguer** (€/mes)", value="n/a")
+        
         selected_columns = st.multiselect("**Selecció d'indicadors:**", table_mun.columns.tolist(), default=table_mun.columns.tolist())
         left_col, right_col = st.columns((1,1))
         with left_col:
@@ -1528,7 +1577,7 @@ if selected=="Municipis":
         with right_col:
             st.markdown("**Dades anuals**")
             st.dataframe(table_mun_y[selected_columns])
-            st.markdown(filedownload(table_mun_y, f"Lloguer_{selected_mun}.xlsx"), unsafe_allow_html=True)
+            st.markdown(filedownload(table_mun_y, f"Lloguer_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
             st.plotly_chart(bar_plotly(table_mun_y, ["Rendes mitjanes de lloguer"], "Evolució anual de les rendes mitjanes de lloguer", "€/mes", 2005), use_container_width=True, responsive=True)
             st.plotly_chart(bar_plotly(table_mun_y, ["Nombre de contractes de lloguer"],  "Evolució anual del nombre de contractes de lloguer", "Nombre de contractes", 2005), use_container_width=True, responsive=True)
 
@@ -1588,13 +1637,13 @@ if selected=="Districtes de Barcelona":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_dis[selected_columns])
-                st.markdown(filedownload(table_dis[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_dis[selected_columns_aux], f"{selected_index}_{selected_dis}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_dis[selected_columns_aux], selected_columns_aux, "Evolució trimestral de la producció d'habitatges", "Indicador d'oferta en nivells"), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_dis[selected_columns_ini], selected_columns_ini, "Habitatges iniciats per tipologia", "Habitatges iniciats", "2011T1"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
                 st.dataframe(table_dis_y[selected_columns])
-                st.markdown(filedownload(table_dis_y[selected_columns_aux], f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_dis_y[selected_columns_aux], f"{selected_index}_{selected_dis}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_dis_y[selected_columns_aux], selected_columns_aux, "Evolució anual de la producció d'habitatges", "Indicador d'oferta en nivells", 2005), use_container_width=True, responsive=True)
                 st.plotly_chart(area_plotly(table_dis[selected_columns_fin], selected_columns_fin, "Habitatges acabats per tipologia", "Habitatges acabats", "2011T1"), use_container_width=True, responsive=True)
         if selected_index=="Compravendes":
@@ -1615,7 +1664,7 @@ if selected=="Districtes de Barcelona":
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_dis[selected_columns])
-                st.markdown(filedownload(table_dis, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_dis, f"{selected_index}_{selected_dis}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_dis, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
@@ -1627,7 +1676,7 @@ if selected=="Districtes de Barcelona":
                 st.markdown("")
                 st.markdown("")
                 st.markdown("")
-                st.markdown(filedownload(table_dis_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_dis_y, f"{selected_index}_{selected_dis}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_dis_y, selected_columns, "Compravendes d'habitatge per tipologia d'habitatge", "Nombre de compravendes", 2005), use_container_width=True, responsive=True)
         if selected_index=="Preus":
             min_year=2017
@@ -1637,17 +1686,17 @@ if selected=="Districtes de Barcelona":
             table_dis_y = tidy_Catalunya_anual(DT_dis_y, ["Fecha"] + concatenate_lists(["prvivt_", "prvivs_", "prvivn_"], selected_dis), min_year, max_year,["Any","Preu d'habitatge total", "Preu d'habitatge de segona mà", "Preu d'habitatge nou"])
             left, center, right = st.columns((1,1,1))
             with left:
-                st.metric(label="**Preu d'habitatge total** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "var")}%""")
+                st.metric(label="**Preu d'habitatge total** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "level"):,.0f} €/m\u00b2""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge total", "var")}%""")
             with center:
-                st.metric(label="**Preu d'habitatge de segona mà** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "var")}%""")
+                st.metric(label="**Preu d'habitatge de segona mà** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "level"):,.0f} €/m\u00b2""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge de segona mà", "var")}%""")
             with right:
-                st.metric(label="**Preu d'habitatge nou** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "var")}%""") 
+                st.metric(label="**Preu d'habitatge nou** (€/m\u00b2)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "level"):,.0f} €/m\u00b2""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Preu d'habitatge nou", "var")}%""") 
             selected_columns = st.multiselect("**Selecció d'indicadors:**", table_dis.columns.tolist(), default=table_dis.columns.tolist())
             left_col, right_col = st.columns((1,1))
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_dis[selected_columns])
-                st.markdown(filedownload(table_dis, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_dis, f"{selected_index}_{selected_dis}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_dis, selected_columns, "Preus per m2 per tipologia d'habitatge", "€/m2 útil"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
@@ -1659,7 +1708,7 @@ if selected=="Districtes de Barcelona":
                 st.markdown("")
                 st.markdown("")
                 st.markdown("")
-                st.markdown(filedownload(table_dis_y, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_dis_y, f"{selected_index}_{selected_dis}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_dis_y, selected_columns, "Preus per m2 per tipologia d'habitatge", "€/m2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
             min_year=2017
@@ -1668,17 +1717,17 @@ if selected=="Districtes de Barcelona":
             table_dis_y = tidy_Catalunya_anual(DT_dis_y, ["Fecha"] + concatenate_lists(["supert_", "supers_", "supern_"], selected_dis), min_year, max_year,["Any","Superfície mitjana total", "Superfície mitjana d'habitatge de segona mà", "Superfície mitjana d'habitatge nou"])
             left, center, right = st.columns((1,1,1))
             with left:
-                st.metric(label="**Superfície mitjana total**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana total", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana total", "var")}%""")
+                st.metric(label="**Superfície mitjana total** (m\u00b2 construït)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana total", "level"):,.0f} m\u00b2""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana total", "var")}%""")
             with center:
-                st.metric(label="**Superfície mitjana d'habitatge de segona mà**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "var")}%""")
+                st.metric(label="**Superfície mitjana d'habitatge de segona mà** (m\u00b2 construït)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "level"):,.0f} m\u00b2""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge de segona mà", "var")}%""")
             with right:
-                st.metric(label="**Superfície mitjana d'habitatge nou**", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge nou", "level"):,.0f}""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge nou", "var")}%""")
+                st.metric(label="**Superfície mitjana d'habitatge nou** (m\u00b2 construït)", value=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge nou", "level"):,.0f} m\u00b2""", delta=f"""{indicator_year(table_dis_y, table_dis, str(selected_year_n), "Superfície mitjana d'habitatge nou", "var")}%""")
             selected_columns = st.multiselect("**Selecció d'indicadors:**", table_dis.columns.tolist(), default=table_dis.columns.tolist())
             left_col, right_col = st.columns((1,1))
             with left_col:
                 st.markdown("**Dades trimestrals**")
                 st.dataframe(table_dis[selected_columns])
-                st.markdown(filedownload(table_dis, f"{selected_index}.xlsx"), unsafe_allow_html=True)
+                st.markdown(filedownload(table_dis, f"{selected_index}_{selected_dis}.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(line_plotly(table_dis, selected_columns, "Superfície mitjana per tipologia d'habitatge", "m2 útil"), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown("**Dades anuals**")
