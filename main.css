@@ -1,3 +1,8 @@
+[data-testid="stSidebar"][aria-expanded="true"]{
+  min-width: 17vw;
+  max-width: 17vw;
+}
+
 .button, .button:link, .button:visited, .download-button {
   font-size: 20px;
   background-color: #de7207;
@@ -14,30 +19,30 @@
 }
 
 
-table.dataframe {
+table {
   border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 0.7em;
+  margin: 5px auto;
+  font-size: 0.75em;
   font-family: sans-serif;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-table.dataframe thead th {
+table thead th {
   background-color: #de7207;
   color: #FFFFFF;
   text-align: center;
 }
 
-table.dataframe tbody tr:nth-of-type(even) {
-  background-color: #de7207;
+table tbody tr:nth-of-type(even) {
+  background-color: #fac678;
 }
 
-table.dataframe tbody tr:last-of-type {
+table tbody tr:last-of-type {
   border-bottom: 2px solid #de7207;
 }
 
-table.dataframe tbody td {
+table tbody td {
   padding: 12px 15px;
 }
 
@@ -98,12 +103,13 @@ header {visibility: hidden;}
 }
 
 body {
-  text-align: justify;
+  text-align: center;
   width: 100%;
 }
 
 h1, h2 {
   color: #333;
+  text-align: center;
 }
 
 h1 {
@@ -115,14 +121,45 @@ h1 {
 h2 {
   font-size: 16px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 p, ul, li{
   font-size: 14px;
   line-height: 1.5;
   margin-bottom: 10px;
+  text-align: center;
+}
+[data-testid="metric-container"] {
+  width: fit-content;
+  margin: auto;
+  overflow: visible;
 }
 
+[data-testid="metric-container"] > div {
+  width: fit-content;
+  margin: auto;
+  overflow: visible;
+}
+
+[data-testid="metric-container"] label {
+  width: fit-content;
+  margin: 5px auto;
+  overflow: visible;
+}
+
+div[data-testid="metric-container"] {
+  color: #7a3601;
+  overflow-wrap: break-word;
+  overflow: visible;
+}
+
+div[data-testid="metric-container"] > label[data-testid="stMetricLabel"] > div {
+  overflow-wrap: break-word;
+  white-space: break-spaces;
+  color: #7a3601;
+  overflow: visible;
+}
 .download-button {
   background-color: #de7207; /* Red background */
   color: #fff; /* White text */
