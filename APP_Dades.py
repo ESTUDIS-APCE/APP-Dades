@@ -68,7 +68,7 @@ selected = option_menu(
         "nav-link-selected": {"background-color": "#de7207"},
         })
   
-@st.cache_data
+@st.cache_data()
 def import_data(trim_limit):
     DT_monthly = pd.read_excel('DT_simple.xlsx', sheet_name= 'ind_m')
     DT_monthly = DT_monthly[DT_monthly["Fecha"]<=trim_limit]
@@ -110,6 +110,7 @@ def import_data(trim_limit):
 
 DT_monthly, DT_terr, DT_terr_y, DT_mun, DT_mun_y, DT_dis, DT_dis_y, maestro_mun, maestro_dis = import_data("2023-10-01")
 
+
 def tidy_Catalunya_m(data_ori, columns_sel, fecha_ini, fecha_fin, columns_output):
     output_data = data_ori[["Fecha"] + columns_sel][(data_ori["Fecha"]>=fecha_ini) & (data_ori["Fecha"]<=fecha_fin)]
     output_data.columns = ["Fecha"] + columns_output
@@ -118,22 +119,27 @@ def tidy_Catalunya_m(data_ori, columns_sel, fecha_ini, fecha_fin, columns_output
     output_data = output_data[(output_data["Month"]<=output_data['Month'].iloc[-1])]
     return(output_data.drop(["Data", "Month"], axis=1))
 
+
 def tidy_Catalunya(data_ori, columns_sel, fecha_ini, fecha_fin, columns_output):
     output_data = data_ori[["Trimestre"] + columns_sel][(data_ori["Fecha"]>=fecha_ini) & (data_ori["Fecha"]<=fecha_fin)]
     output_data.columns = ["Trimestre"] + columns_output
 
     return(output_data.set_index("Trimestre").drop("Data", axis=1))
 
+
 def tidy_Catalunya_anual(data_ori, columns_sel, fecha_ini, fecha_fin, columns_output):
     output_data = data_ori[columns_sel][(data_ori["Fecha"]>=fecha_ini) & (data_ori["Fecha"]<=fecha_fin)]
     output_data.columns = columns_output
     output_data["Any"] = output_data["Any"].astype(str)
     return(output_data.set_index("Any"))
+
 def tidy_Catalunya_mensual(data_ori, columns_sel, fecha_ini, fecha_fin, columns_output):
     output_data = data_ori[["Fecha"] + columns_sel][(data_ori["Fecha"]>=fecha_ini) & (data_ori["Fecha"]<=fecha_fin)]
     output_data.columns = ["Fecha"] + columns_output
     output_data["Fecha"] = output_data["Fecha"].astype(str)
     return(output_data.set_index("Fecha"))
+
+
 def tidy_present(data_ori, columns_sel, year):
     output_data = data_ori[data_ori[columns_sel]!=0][["Trimestre"] + [columns_sel]].dropna()
     output_data["Trimestre_aux"] = output_data["Trimestre"].str[-1]
@@ -144,6 +150,8 @@ def tidy_present(data_ori, columns_sel, year):
     output_data = output_data[output_data["Any"]==str(year)]
     output_data = output_data.set_index("Any")
     return(output_data.values[0][0])
+
+
 def tidy_present_monthly(data_ori, columns_sel, year):
     output_data = data_ori[["Fecha"] + [columns_sel]]
     output_data["Any"] = output_data["Fecha"].dt.year
@@ -151,6 +159,8 @@ def tidy_present_monthly(data_ori, columns_sel, year):
     output_data = output_data.groupby("Any").sum().pct_change().mul(100).reset_index()
     output_data = output_data[output_data["Any"]==int(year)].set_index("Any")
     return(output_data.values[0][0])
+
+
 def tidy_present_monthly_aux(data_ori, columns_sel, year):
     output_data = data_ori[["Fecha"] + columns_sel].dropna(axis=0)
     output_data["month_aux"] = output_data["Fecha"].dt.month
@@ -160,6 +170,8 @@ def tidy_present_monthly_aux(data_ori, columns_sel, year):
     output_data = output_data.groupby("Any").sum().pct_change().mul(100).reset_index()
     output_data = output_data[output_data["Any"]==int(year)].set_index("Any")
     return(output_data.values[0][0])
+
+
 def tidy_present_monthly_diff(data_ori, columns_sel, year):
     output_data = data_ori[["Fecha"] + columns_sel].dropna(axis=0)
     output_data["month_aux"] = output_data["Fecha"].dt.month
@@ -169,6 +181,7 @@ def tidy_present_monthly_diff(data_ori, columns_sel, year):
     output_data = output_data.groupby("Any").mean().diff().mul(100).reset_index()
     output_data = output_data[output_data["Any"]==int(year)].set_index("Any")
     return(output_data.values[0][0])
+
 
 def indicator_year(df, df_aux, year, variable, tipus, frequency=None):
     if (year==str(datetime.now().year) and (frequency=="month") and ((tipus=="var") or (tipus=="diff"))):
@@ -198,6 +211,8 @@ def concatenate_lists(list1, list2):
         result_element = i+ list2
         result_list.append(result_element)
     return(result_list)
+
+
 def filedownload(df, filename):
     towrite = io.BytesIO()
     df.to_excel(towrite, encoding='latin-1', index=True, header=True)
@@ -207,9 +222,11 @@ def filedownload(df, filename):
     <button class="download-button">Descarregar</button></a>"""
     return href
 
-def line_plotly(table_n, selection_n, title_main, title_y, title_x="Trimestre"):
+@st.cache_data()
+def line_plotly(table_n, selection_n, title_main, title_y, title_x="Trimestre", replace_0=False):
     plot_cat = table_n[selection_n]
-    plot_cat = plot_cat.replace(0, np.NaN)
+    if replace_0==True:
+        plot_cat = plot_cat.replace(0, np.NaN)
     colors = ['#2d538f', '#de7207', '#385723']
     traces = []
     for i, col in enumerate(plot_cat.columns):
@@ -230,6 +247,7 @@ def line_plotly(table_n, selection_n, title_main, title_y, title_x="Trimestre"):
     fig = go.Figure(data=traces, layout=layout)
     return fig
 
+@st.cache_data()
 def bar_plotly(table_n, selection_n, title_main, title_y, year_ini, year_fin=datetime.now().year-1):
     table_n = table_n.reset_index()
     table_n["Any"] = table_n["Any"].astype(int)
@@ -252,6 +270,7 @@ def bar_plotly(table_n, selection_n, title_main, title_y, year_ini, year_fin=dat
     )
     fig = go.Figure(data=traces, layout=layout)
     return fig
+@st.cache_data()
 def stacked_bar_plotly(table_n, selection_n, title_main, title_y, year_ini, year_fin=datetime.now().year-1):
     table_n = table_n.reset_index()
     table_n["Any"] = table_n["Any"].astype(int)
@@ -278,6 +297,7 @@ def stacked_bar_plotly(table_n, selection_n, title_main, title_y, year_ini, year
     
     fig = go.Figure(data=traces, layout=layout)
     return fig
+@st.cache_data()
 def area_plotly(table_n, selection_n, title_main, title_y, trim):
     plot_cat = table_n[table_n.index>=trim][selection_n]
     fig = px.area(plot_cat, x=plot_cat.index, y=plot_cat.columns, title=title_main)
@@ -290,6 +310,7 @@ def area_plotly(table_n, selection_n, title_main, title_y, trim):
         legend=dict(x=-0.15, y=1.25, orientation="h"),  # Adjust the x and y values for the legend position
     )
     return fig
+
 def table_monthly(data_ori, year_ini, rounded=True):
     data_ori = data_ori.reset_index()
     month_mapping_catalan = {
@@ -326,6 +347,7 @@ def table_monthly(data_ori, year_ini, rounded=True):
         output_data.columns = output_data.iloc[0,:]
         output_data = output_data.iloc[1:,:]
     return(output_data)
+
 def table_trim(data_ori, year_ini, rounded=False, formated=True):
     data_ori = data_ori.reset_index()
     data_ori["Any"] = data_ori["Trimestre"].str.split("T").str[0]
@@ -341,6 +363,7 @@ def table_trim(data_ori, year_ini, rounded=False, formated=True):
         return(output_data.style.format("{:,.0f}"))
     else:
         return(output_data.style.format("{:,.1f}"))
+
 def table_year(data_ori, year_ini, rounded=False, formated=True):
     data_ori = data_ori.reset_index()
     if rounded==True:
@@ -355,8 +378,8 @@ def table_year(data_ori, year_ini, rounded=False, formated=True):
         return(data_output.style.format("{:,.1f}"))
 if selected == "Espanya":
     st.sidebar.header("**ESPANYA**")
-    selected_type = st.sidebar.radio("", ("Sector residencial","Indicadors macroeconòmics i financers"))
-    if selected_type=="Indicadors macroeconòmics i financers":
+    selected_type = st.sidebar.radio("", ("Sector residencial","Indicadors econòmics"))
+    if selected_type=="Indicadors econòmics":
         selected_index = st.sidebar.selectbox("**Selecciona un indicador:**", ["Índex de Preus al Consum (IPC)", "Consum de ciment","Tipus d'interès", "Hipoteques"])
         available_years = list(range(2018, datetime.now().year + 1))
         selected_year_n = st.sidebar.selectbox("**Selecciona un any:**", available_years, available_years.index(datetime.now().year))
@@ -650,8 +673,8 @@ if selected == "Espanya":
 
 if selected == "Catalunya":
     st.sidebar.header("**CATALUNYA**")
-    selected_indicator = st.sidebar.radio("", ("Sector residencial", "Indicadors macroeconòmics i financers"))
-    if selected_indicator=="Indicadors macroeconòmics i financers":
+    selected_indicator = st.sidebar.radio("", ("Sector residencial", "Indicadors econòmics"))
+    if selected_indicator=="Indicadors econòmics":
         selected_index = st.sidebar.selectbox("**Selecciona un indicador:**", ["Costos de construcció", "Mercat laboral", "Consum de Ciment", "Hipoteques"])
         available_years = list(range(2014, datetime.now().year + 1))
         selected_year_n = st.sidebar.selectbox("**Selecciona un any:**", available_years, available_years.index(datetime.now().year))
@@ -1578,7 +1601,7 @@ if selected=="Municipis":
     st.sidebar.header("**MUNICIPIS DE CATALUNYA**")
     selected_type = st.sidebar.radio("**Mercat de venda o lloguer**", ("Venda", "Lloguer"))
     if selected_type=="Venda":
-        selected_mun = st.sidebar.selectbox("**Selecciona un municipi:**", maestro_mun["Municipi"].unique(), index= maestro_mun["Municipi"].tolist().index("Barcelona"))
+        selected_mun = st.sidebar.selectbox("**Selecciona un municipi:**", maestro_mun[maestro_mun["ADD"]=="SI"]["Municipi"].unique(), index= maestro_mun[maestro_mun["ADD"]=="SI"]["Municipi"].tolist().index("Barcelona"))
         index_names = ["Producció", "Compravendes", "Preus", "Superfície"]
         selected_index = st.sidebar.selectbox("**Selecciona un indicador:**", index_names)
         max_year=datetime.now().year
@@ -1721,9 +1744,8 @@ if selected=="Municipis":
             st.markdown(filedownload(table_year(table_mun_y, 2014, True, False), f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
             left_col, right_col = st.columns((1,1))
             with left_col:
-                st.plotly_chart(line_plotly(table_mun, table_mun.columns.tolist(), "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil"), use_container_width=True, responsive=True)
+                st.plotly_chart(line_plotly(table_mun, table_mun.columns.tolist(), "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", True), use_container_width=True, responsive=True)
             with right_col:
-                st.markdown(filedownload(table_mun_y, f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_mun_y, table_mun.columns.tolist(), "Preus per m\u00b2 per tipologia d'habitatge", "€/m\u00b2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
             min_year=2014
@@ -1759,7 +1781,7 @@ if selected=="Municipis":
             st.markdown(filedownload(table_year(table_mun_y, 2014, True, False), f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
             left_col, right_col = st.columns((1,1))
             with left_col:
-                st.plotly_chart(line_plotly(table_mun, table_mun.columns.tolist(), "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil"), use_container_width=True, responsive=True)
+                st.plotly_chart(line_plotly(table_mun, table_mun.columns.tolist(), "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil", True), use_container_width=True, responsive=True)
             with right_col:
                 st.markdown(filedownload(table_mun_y, f"{selected_index}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
                 st.plotly_chart(bar_plotly(table_mun_y, table_mun.columns.tolist(), "Superfície mitjana per tipologia d'habitatge", "m\u00b2 útil", 2005), use_container_width=True, responsive=True)
@@ -1795,7 +1817,7 @@ if selected=="Municipis":
         st.markdown(filedownload(table_year(table_mun_y, 2014, rounded=True), f"{selected_type}_{selected_mun}_anual.xlsx"), unsafe_allow_html=True)
         left_col, right_col = st.columns((1,1))
         with left_col:
-            st.plotly_chart(line_plotly(table_mun, ["Rendes mitjanes de lloguer"], "Evolució trimestral de les rendes mitjanes de lloguer", "€/mes"), use_container_width=True, responsive=True)
+            st.plotly_chart(line_plotly(table_mun, ["Rendes mitjanes de lloguer"], "Evolució trimestral de les rendes mitjanes de lloguer", "€/mes", True), use_container_width=True, responsive=True)
             st.plotly_chart(line_plotly(table_mun, ["Nombre de contractes de lloguer"], "Evolució trimestral del nombre de contractes de lloguer", "Nombre de contractes"), use_container_width=True, responsive=True)
         with right_col:
             st.plotly_chart(bar_plotly(table_mun_y, ["Rendes mitjanes de lloguer"], "Evolució anual de les rendes mitjanes de lloguer", "€/mes", 2005), use_container_width=True, responsive=True)
@@ -1922,7 +1944,7 @@ if selected=="Districtes de Barcelona":
             st.markdown(filedownload(table_year(table_dis_y, 2014, True, False), f"{selected_index}_{selected_dis}_anual.xlsx"), unsafe_allow_html=True)
             left_col, right_col = st.columns((1,1))
             with left_col:
-                st.plotly_chart(line_plotly(table_dis, table_dis.columns.tolist(), "Preus per m2 per tipologia d'habitatge", "€/m2 útil"), use_container_width=True, responsive=True)
+                st.plotly_chart(line_plotly(table_dis, table_dis.columns.tolist(), "Preus per m2 per tipologia d'habitatge", "€/m2 útil", True), use_container_width=True, responsive=True)
             with right_col:
                 st.plotly_chart(bar_plotly(table_dis_y, table_dis.columns.tolist(), "Preus per m2 per tipologia d'habitatge", "€/m2 útil", 2005), use_container_width=True, responsive=True)
         if selected_index=="Superfície":
@@ -1949,7 +1971,7 @@ if selected=="Districtes de Barcelona":
             st.markdown(filedownload(table_year(table_dis_y, 2014, True, False), f"{selected_index}_{selected_dis}_anual.xlsx"), unsafe_allow_html=True)
             left_col, right_col = st.columns((1,1))
             with left_col:
-                st.plotly_chart(line_plotly(table_dis, table_dis.columns.tolist(), "Superfície mitjana per tipologia d'habitatge", "m2 útil"), use_container_width=True, responsive=True)
+                st.plotly_chart(line_plotly(table_dis, table_dis.columns.tolist(), "Superfície mitjana per tipologia d'habitatge", "m2 útil", True), use_container_width=True, responsive=True)
             with right_col:
                 st.plotly_chart(bar_plotly(table_dis_y, table_dis.columns.tolist(), "Superfície mitjana per tipologia d'habitatge", "m2 útil", 2005), use_container_width=True, responsive=True)
     if selected_type=="Lloguer":
@@ -1978,9 +2000,9 @@ if selected=="Districtes de Barcelona":
         st.markdown(filedownload(table_year(table_dis_y, 2014, rounded=True), f"{selected_type}_{selected_dis}_anual.xlsx"), unsafe_allow_html=True)
         left, right = st.columns((1,1))
         with left:
-            st.plotly_chart(line_plotly(table_dis, ["Nombre de contractes de lloguer"], "Evolució trimestral dels contractes de lloguer", "Nombre de contractes"), use_container_width=True, responsive=True)
+            st.plotly_chart(line_plotly(table_dis, ["Nombre de contractes de lloguer"], "Evolució trimestral dels contractes de lloguer", "Nombre de contractes", True), use_container_width=True, responsive=True)
         with right:
-            st.plotly_chart(line_plotly(table_dis_y, ["Rendes mitjanes de lloguer"], "Evolució trimestral de les rendes mitjanes de lloguer", "€/mes"), use_container_width=True, responsive=True)
+            st.plotly_chart(line_plotly(table_dis_y, ["Rendes mitjanes de lloguer"], "Evolució trimestral de les rendes mitjanes de lloguer", "€/mes", True), use_container_width=True, responsive=True)
 if selected=="Contacte":
     load_css_file(path + "main.css")
     CONTACT_EMAIL = "estudis@apcecat.cat"

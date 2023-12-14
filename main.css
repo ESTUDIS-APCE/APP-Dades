@@ -3,6 +3,35 @@
   max-width: 17vw;
 }
 
+body {
+  text-align: center;
+  width: 100%;
+}
+
+h1, h2 {
+  color: #333;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+p, ul, li{
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .button, .button:link, .button:visited, .download-button {
   font-size: 20px;
   background-color: #de7207;
@@ -102,34 +131,8 @@ header {visibility: hidden;}
   font-family: "Arial", sans-serif;
 }
 
-body {
-  text-align: center;
-  width: 100%;
-}
 
-h1, h2 {
-  color: #333;
-  text-align: center;
-}
 
-h1 {
-  font-size: 24px;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-p, ul, li{
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 10px;
-  text-align: center;
-}
 [data-testid="metric-container"] {
   width: fit-content;
   margin: auto;
