@@ -68,7 +68,7 @@ selected = option_menu(
         "nav-link-selected": {"background-color": "#de7207"},
         })
   
-@st.cache_data()
+@st.cache_data(ttl=1800)
 def import_data(trim_limit):
     DT_monthly = pd.read_excel('DT_simple.xlsx', sheet_name= 'ind_m')
     DT_monthly = DT_monthly[DT_monthly["Fecha"]<=trim_limit]
