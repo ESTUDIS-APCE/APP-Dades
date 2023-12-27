@@ -131,10 +131,28 @@ header {visibility: hidden;}
   font-family: "Arial", sans-serif;
 }
 
+.custom-box {
+  border: 2px solid #fac678;
+  background-color: #fac678;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 30px 10px 30px;
+  color: #7a3601;
+  font-weight: bold;
+}
 
+div[data-testid="metric-container"] {
+  background-color: #fac678;
+  border: 1px solid #fac678;
+  padding: 0.3% 1% 0.3% 1%;
+  margin: 0px 30px 0px 30px;
+  border-radius: 5px;
+  color: #de7207;
+  overflow-wrap: break-word;
+}
 
 [data-testid="metric-container"] {
-  width: fit-content;
+  height: fit-content;
   margin: auto;
   overflow: visible;
 }
@@ -171,7 +189,7 @@ div[data-testid="metric-container"] > label[data-testid="stMetricLabel"] > div {
   font-size: 16px; /* Text size */
   font-weight: bold; /* Bold text */
   border-radius: 4px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Shadow effect */
+  box-shadow: 0 2px 4px #de7207; /* Shadow effect */
   transition: all 0.3s ease; /* Smooth transition on hover */
 }
 
